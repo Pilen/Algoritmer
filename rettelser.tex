@@ -1,0 +1,72 @@
+\documentclass[10pt,a4paper,danish]{article}
+%% Indlæs ofte brugte pakker
+\usepackage{amssymb}
+\usepackage[danish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\rhead{\today}
+\rfoot{\thepage}
+
+% Opsæt indlæsning af filer
+\lstset{
+ language=Python,
+ extendedchars=\true,
+ inputencoding=utf8,
+ linewidth=\textwidth, basicstyle=\small,
+ numbers=left, numberstyle=\footnotesize,
+ tabsize=2, showstringspaces=false,
+ breaklines=true, breakatwhitespace=false,
+}
+
+%% Titel og forfatter
+\title{Rettelser til Aflevering 2 \\Algoritmer og datastrukturer\\Forår/Sommer 2011}
+\author{Naja Mottelson (vsj465)\\Søren Pilgård (vpb984)}
+
+%% Start dokumentet
+\begin{document}
+
+%% Vis titel
+\maketitle
+\newpage
+
+%% HER STARTER RAPPORTEN
+\section{a}
+I begår en fejl i påstanden $x = 6$. x er ikke et index men en værdi - i dette tilfælde 13. 
+
+\section{b}
+Når j bliver dekrementeret og i inkrementeret, hvad er så garantien for for at i ikke 
+bliver større end r og j mindre end p? 
+
+\section{c}
+\begin{itemize}
+\item Man kan ikke bevise noget med et eksempel (i andre tilfælde en bevis pr. modeksempel). 
+\item Jeres formler bliver meget sværtforståelige, eftersom de mangler fornødne parenteser. 
+\item I benytter tegnet '$\rightarrow$' i jeres formler. I bogen benyttes tegnet som tildelingsoperator, 
+hvad betyder den hos jer?
+\item I benytter tegnet '!$<$'. Korrekt at skrive i dette tilfælde ville have været '$>=$'. 
+\item I fører beviset for $a1 < a2$ og $a1 > a2$, men hvad med $a1 = a2$?
+\item I skal også bevise at egenskaben altid gælder for A.length $>= 2$ - ellers er jeres bevis
+ikke generelt.  
+\end{itemize}
+
+
+\section{d}
+\begin{itemize}
+\item Når I taler om 'the property' skal I udspecificere hvilken egenskab I taler om. 
+\item Hvorfor introducerer I $a_k$ og $a_l$? Kunne I ikke lige så godt bruge $A[j]$ og $A[i]$. 
+\item Generelt: dette afsnit er ret kringlet formuleret, og minder mere om en gennemgang end
+et reelt bevis. 
+\end{itemize}
+
+\section{e}
+Intet at bemærke her. 
+
+\end{document}
