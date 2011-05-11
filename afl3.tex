@@ -1,0 +1,136 @@
+\documentclass[10pt,a4paper,danish]{article}
+%% Indlæs ofte brugte pakker
+\usepackage{amssymb}
+\usepackage[danish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\rhead{\today}
+\rfoot{\thepage}
+
+% Opsæt indlæsning af filer
+\lstset{
+ language=Python,
+ extendedchars=\true,
+ inputencoding=utf8,
+ linewidth=\textwidth, basicstyle=\small,
+ numbers=left, numberstyle=\footnotesize,
+ tabsize=2, showstringspaces=false,
+ breaklines=true, breakatwhitespace=false,
+}
+
+%% Titel og forfatter
+\title{Aflevering 1 \\Algoritmer og datastrukturer\\Forår/Sommer 2011}
+\author{Naja Mottelson (vsj465)\\Søren Pilgård (vpb984)}
+
+%% Start dokumentet
+\begin{document}
+
+%% Vis titel
+\maketitle
+\newpage
+
+%% Vis indholdsfortegnelse
+\tableofcontents
+\newpage
+
+%% Rapport, baby!
+\section{a}
+\subsection{Algoritme}
+Vi ønsker at løse opgaven at give byttepenge (bestående af pennies, nickels, dimes og quarters)
+for $n$ cents benyttende det mindst mulige antal mønter. En grådig algoritme til at gøre dette kan være
+som følger: Hvis $n = 0$ gives 0 mønter. Hvis $n > 0$ findes den største
+mønt med værdi $c$, $c<=n$, denne gives og derefter rekurserer vi ved at finde byttepenge for $n-c$ cents.
+
+\subsection{Bevis}
+For at bevise at denne algoritme giver den optimale løsning beviser vi indledningsvist at den 
+grådige egenskab gælder. I dette tilfælde vil det betyde at en given optimal løsning altid vil
+indeholde en mønt med værdien $c$, hvor $c<=n$.
+\\
+For at gøre dette forestiller vi os en optimal løsning. Såfremt denne løsning er nødt til at indeholde
+en mønt med værdien $c$ behøver vi ikke gøre mere. Ellers antager vi at løsningen ikke indeholder en 
+mønt med værdien $c$. Vi har følgende fire grænsetilfælde for $n$: 
+
+\begin{description}
+\item[$1 <= n < 5$:] I dette tilfælde vil $c = 1$. Eftersom denne optimale løsning udelukkende må indeholde
+pennies, må den nødvendigvis indeholde en mønt med værdien $c$. 
+\item[$5 <= n < 10$:] Her vil $c = 5$. Denne optimale løsning vil ligeledes udelukkende indeholde pennies, 
+eftersom vi antager at den ikke indeholder en nickel. Antallet af pennies vil dog nødvendigvis være større 
+end 5, hvorved vi kan erstatte de 5 pennies med en nickel og få en løsning med 4 færre mønter. 
+\item[$10 <= n < 25$:] Her vil $c = 10$. Vi antager at denne optimale løsning ikke indeholder en dime. En 
+en delmængde af de pennies og nickels den indeholder vil dog kunne summeres til 10, som så kan erstattes med
+en dime og give en løsning med færre mønter (det specifikke antal færre mønter ligger imellem 1 og 9).
+\item[$25 <= n$:] Her vil $c = 25$. Ligesom ovenfor antager vi at denne optimale løsning ikke indeholder
+en quarter. Den værdi (som er skarpt større end $n$) som indeholder det færrest mulige antal mønter vil i 
+dette tilfælde være 3 dimes. Disse vil kunne erstattes af to dimes og en nickel og så give en optimal løsning
+med færre mønter. 
+\end{description}
+
+Således har vi vist at en optimal løsning altid indeholder det grådige valg ($c$). Køretid for denne
+algoritme er Theta(k) hvor k = antallet af mønter i en optimal løsning. Vi ved at $k <= n$, så algoritmen
+er O(n). 
+
+\section{b}
+Dette afsnit har jeg ikke så meget til endnu. Det følger sikkert trivielt. 
+
+\section{c}
+Fjerner vi 'nickel'-enheden fra mængden af enheder i denne opgave får vi en mængde af møntenheder
+hvorpå den grådige strategi ikke giver en optimal løsning. Eksempel: $n = 30$. Her vil en grådig
+algoritme give én quarter og fem pennies, hvor den optimale løsning ville have været 3 dimes. 
+
+\section{d}
+Vi har optimal substruktur (siger Sebastian - jeg mangler at eftervise det). Derfor kan vi muligvis
+bruge dynamisk programmering. 
+
+Lad $num[j] =$ min. antal mønter vi skal bruge for at give byttepenge for j cents og de forskellige 
+møntenheder være $d_0, d_1, d_2 \ldots d_k$. 
+
+Hvis vi vidste at en optimal løsning indeholdt en møntenhed $di$, ville vi have 
+$num[j] = 1 + num[j - di]$. 
+
+lad $den[j]$ være en møntenhed benyttet i en optimal løsning for at give byttepenge for $j$ cents. 
+
+Vores algoritme skal returnere num og den, da disse tabeller indeholder al den information vi 
+behøver for at udregne den optimale løsning. 
+
+Udkast til algoritme: 
+\begin{verbatim}
+CHANGE(n, d, k)
+for j <- 1 to n: 
+	num[j] <- infinity
+		for i <- 1 to k: 
+			if j >= di  and 1 + num[j - di] < num[j]
+				then num[j] <- 1 + num[j - di]
+					den[j] <- di 
+return num, den
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+\end{document}
