@@ -8,6 +8,7 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{graphicx}
+%%Vi skal have ToDo-pakken fra Henne!
 
 \pagestyle{fancy}
 \fancyhead{}
@@ -27,7 +28,7 @@
 }
 
 %% Titel og forfatter
-\title{Aflevering 1 \\Algoritmer og datastrukturer\\Forår/Sommer 2011}
+\title{Aflevering 3 \\Algoritmer og datastrukturer\\Forår/Sommer 2011}
 \author{Naja Mottelson (vsj465)\\Søren Pilgård (vpb984)}
 
 %% Start dokumentet
@@ -74,11 +75,48 @@ med færre mønter.
 \end{description}
 
 Således har vi vist at en optimal løsning altid indeholder det grådige valg ($c$). Køretid for denne
-algoritme er Theta(k) hvor k = antallet af mønter i en optimal løsning. Vi ved at $k <= n$, så algoritmen
-er O(n). 
+algoritme er $\Theta(k)$ hvor $k =$ antallet af mønter i en optimal løsning. Vi ved at $k <= n$, så algoritmen
+er $O(n)$. 
 
 \section{b}
-Dette afsnit har jeg ikke så meget til endnu. Det følger sikkert trivielt. 
+Vi har møntenhederne $c^0, c^1, c^2, \ldots c^k$ for heltallene $c > 1$ og $k >= 1$. En grådig 
+algoritme til at give byttepenge for $n$ cents kunne i dette tilfælde virke ved at finde den 
+møntenhed $c^j$ der passer på at $j = max(0 <= i <= k)$ hvor $c^i <= n$. Den returnerer en mønt 
+$c^j$ og rekurserer over underproblemet at give byttepenge for $n - n^j$. 
+\\
+For at kunne føre beviset beviser vi først følgende lemma:  Lad $a_i$ være antallet af mønter brugt
+i en given optimal løsning. Da gælder at $a_i < c$. 
+\\
+\emph{Bevis}: Hvis $a_i >= c$ for et $i$ hvor $0 <= i < k$ så kan vi forbedre løsningen ved at bruge
+én mere mønt af enhed $ c^i+1$ og $c$ færre mønter møntenhed $c^i$. Vi vil i dette tilfælde få en 
+løsning med $c - 1$ færre mønter. 
+\\
+Vi betragter nu en ikke-grådig løsning, som ikke benytter nogen mønter af møntenhed $c^j$ eller 
+højere. Lad den ikke-grådige løsning bruge $a_i$ mønter af møntenhed $c^i$ for $
+i = 0, 1, \ldots j-1$. 
+\\
+Vi kan, pr. ovenstående lemma, konkludere at en optimal løsning ikke kan indeholde mere end
+$(c-1)$ af hver møntenhed. Således vil den maksimale værdi vi kan konstruere vha. mønter
+af møntenhed $<= c^j-1$ kunne beskrives som $(c-1)c^0 + c-1)c^1 +c-1)c^2 + \ldots c-1)c^k$.
+Vi ser at denne sumfølge kan skrives op på formen for geometriske serier (A.5 i CLRS): 
+
+$\displaystyle (c-1)\sum\limits_{i=0}^j-1 c^i = \frac{c^j - 1}{c -1} (c - 1)$
+\\
+\\
+Vi ser endvidere at dette kan reduceres til
+\\
+\\
+$\displaystyle (c-1)\sum\limits_{i=0}^j-1 c^i = c^j - 1$
+\\
+\\
+Eftersom vi ved at $c^j <= n$, og således at $c^j - 1 < n$ kan vi ud fra ovenstående 
+konkludere at man ikke vil være i stand til at give byttepenge for $n$ cents udelukkende
+vha. mønter af møntenhederne $c^0, c^1, c^2, \ldots c^j-1$. Dette betyder at den ikke-grådige
+løsning ikke er optimal. 
+\\
+Eftersom enhver algoritme som ikke inkluderer det grådige valg ($c^j$) må være suboptimal, 
+kan vi konkludere at den grådige løsning altid vil være optimal. 
+
 
 \section{c}
 Fjerner vi 'nickel'-enheden fra mængden af enheder i denne opgave får vi en mængde af møntenheder
@@ -86,16 +124,13 @@ hvorpå den grådige strategi ikke giver en optimal løsning. Eksempel: $n = 30$
 algoritme give én quarter og fem pennies, hvor den optimale løsning ville have været 3 dimes. 
 
 \section{d}
-Vi har optimal substruktur (siger Sebastian - jeg mangler at eftervise det). Derfor kan vi muligvis
-bruge dynamisk programmering. 
-
 Lad $num[j] =$ min. antal mønter vi skal bruge for at give byttepenge for j cents og de forskellige 
 møntenheder være $d_0, d_1, d_2 \ldots d_k$. 
 
 Hvis vi vidste at en optimal løsning indeholdt en møntenhed $di$, ville vi have 
 $num[j] = 1 + num[j - di]$. 
 
-lad $den[j]$ være en møntenhed benyttet i en optimal løsning for at give byttepenge for $j$ cents. 
+Lad $den[j]$ være en møntenhed benyttet i en optimal løsning for at give byttepenge for $j$ cents. 
 
 Vores algoritme skal returnere num og den, da disse tabeller indeholder al den information vi 
 behøver for at udregne den optimale løsning. 
@@ -104,11 +139,11 @@ Udkast til algoritme:
 \begin{verbatim}
 CHANGE(n, d, k)
 for j <- 1 to n: 
-	num[j] <- infinity
-		for i <- 1 to k: 
-			if j >= di  and 1 + num[j - di] < num[j]
-				then num[j] <- 1 + num[j - di]
-					den[j] <- di 
+    num[j] <- infinity
+        for i <- 1 to k: 
+            if j >= $d_i$  and 1 + num[j - $d_i$] < num[j]
+                then num[j] <- 1 + num[j - $d_i$]
+                den[j] <- $d_i$ 
 return num, den
 \end{verbatim}
 
