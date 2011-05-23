@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper,danish]{article}
+%% Indlæs ofte brugte pakker
+\usepackage{amssymb}
+\usepackage[danish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\rhead{\today}
+\rfoot{\thepage}
+
+% Opsæt indlæsning af filer
+\lstset{
+ language=Python,
+ extendedchars=\true,
+ inputencoding=utf8,
+ linewidth=\textwidth, basicstyle=\small,
+ numbers=left, numberstyle=\footnotesize,
+ tabsize=2, showstringspaces=false,
+ breaklines=true, breakatwhitespace=false,
+}
+
+%% Titel og forfatter
+\title{Aflevering 4 \\Algoritmer og datastrukturer\\Forår/Sommer 2011}
+\author{Naja Mottelson (vsj465)\\Søren Pilgård (vpb984)}
+
+%% Start dokumentet
+\begin{document}
+
+%% Vis titel
+\maketitle
+\newpage
+
+%% Vis indholdsfortegnelse
+\tableofcontents
+\newpage
+
+%% Rapport, baby!
+\section{a}
+\subsection{Algoritme}
+Lader vi i og j være indicer til hhv. det første og sidste element i A, kan vi
+skrive en multrådet algoritme til at lægge arrays sammen således: 
+\\
+
+\begin{algorithmic}[1]
+\STATE SUM-ARRAYS$(A, B, C, i, j)$
+\IF {$i == j$}
+    \STATE $ C[i] = A[i] + C[i]$
+\ELSE
+    \STATE mid = $\lfloor (i + j) \rfloor$ 
+    \STATE spawn SUM-ARRAYS$(A, B, C, i, mid)$
+    \STATE SUM-ARRAYS$(A, B, C, mid + 1, j)$
+	\STATE sync
+\ENDIF
+\end{algorithmic}
+
+\subsection{Paralellisme}
+Work for denne algoritme kan beskrives ved rekursionsligningen
+
+$$
+T_1(n) =
+  \begin{cases}
+    \Theta(1) & \text{hvis } i == j \\
+   2T_1(\frac{n} {2}) + \Theta(1)& \text{hvis } i \neq j
+  \end{cases}
+$$
+\\
+Vi ser at det første led bidrager med $\Theta(\text{lg} n)$ arbejde, hvilket
+dominerer det konstante led fra basistilældet. Altså har vi $T_1(n) =\Theta(\text{lg} n)$. 
+Eftersom dybden af rekursive kald er logaritmisk, og de rekursive kald igen dominerer
+den konstante faktor fra basistilfældet får vi at $T_\infty(n) = \Theta(\text{lg} n)$. 
+Parallelismen for SUM-ARRAYS ($\frac{T_1} {T_\infty}$) bliver således $\frac{\text{lg n}} {\text{lg n}} = 1$. 
+
+\section{c}
+Eftersom hjælperoutinen ADD-SUBARRAY bidrager med $\Theta(n)$ som $grain-size$ vokser, kan en formel for SUM-ARRAYS' i termer af $n$ og $grain-size$ skrives på formen $$T_\infty = \lceil \frac{n} {grain-size} \rceil + n$$. 
+\todo[inline] {Differentiér $T_\infty$, find nulpunkt og argumentér for at dette vil være den optimale værdi for grain-size.} 
+
+
+
+\end{document} 
+
