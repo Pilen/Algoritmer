@@ -18,6 +18,7 @@
 \fancyfoot{}
 \rhead{\today}
 \rfoot{\thepage}
+\setlength{\parindent}{0pt}
 
 % Opsæt indlæsning af filer
 \lstset{
@@ -48,8 +49,8 @@
 %% Rapport, baby!
 \section{a}
 \subsection{Algoritme}
-Lader vi i og j være indicer til hhv. det første og sidste element i A, kan vi
-skrive en multrådet algoritme til at lægge arrays sammen således: 
+Lader vi i og j være indicer til hhv. det første og sidste element i de arrays vi 
+arbejder med, kan vi skrive en multitrådet algoritme til at lægge arrays sammen således: 
 \\
 
 \begin{algorithmic}[1]
@@ -80,6 +81,24 @@ dominerer det konstante led fra basistilældet. Altså har vi $T_1(n) =\Theta(\t
 Eftersom dybden af rekursive kald er logaritmisk, og de rekursive kald igen dominerer
 den konstante faktor fra basistilfældet får vi at $T_\infty(n) = \Theta(\text{lg } n)$. 
 Parallelismen for SUM-ARRAYS ($\frac{T_1} {T_\infty}$) bliver således $\Theta(\frac{\text{lg n}} {\text{lg n}}) = \Theta(1)$. 
+
+\section{b}
+Når vi sætter $grain-size$ til $1$ vil ADD-SUBARRAY udføre konstant arbejde eftersom
+vi altid vil have at $j = i$. Work for SUM-ARRAYS' vil derfor blive 
+$$T_1(n) = \Theta(n) \cdot \Theta(1) = \Theta(n)$$
+
+Det samme gælder ved udregningen af span, som således kan skrives som 
+
+$$T_\infty(n) = \Theta(n) + \Theta(1) = \Theta(n)$$
+
+Vi får derved parallelismen
+
+$$
+\begin{aligned}
+\frac{T_1} {T_\infty} &= \Theta(\frac{n} {n})\\
+&= \Theta(1)
+\end{aligned}
+$$
 
 \section{c}
 Vi ser at for-løkken i SUM-ARRAYS' bidrager med $\Theta(r)$ arbejde og 
