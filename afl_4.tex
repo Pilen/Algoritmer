@@ -57,7 +57,7 @@ skrive en multrådet algoritme til at lægge arrays sammen således:
 \IF {$i == j$}
     \STATE $ C[i] = A[i] + C[i]$
 \ELSE
-    \STATE mid = $\lfloor (i + j) \rfloor$ 
+    \STATE mid = $\lfloor \frac{(i + j)} 2 \rfloor$ 
     \STATE spawn SUM-ARRAYS$(A, B, C, i, mid)$
     \STATE SUM-ARRAYS$(A, B, C, mid + 1, j)$
 	\STATE sync
@@ -70,22 +70,38 @@ Work for denne algoritme kan beskrives ved rekursionsligningen
 $$
 T_1(n) =
   \begin{cases}
-    \Theta(1) & \text{hvis } i == j \\
+    \Theta(1) & \text{hvis } i = j \\
    2T_1(\frac{n} {2}) + \Theta(1)& \text{hvis } i \neq j
   \end{cases}
 $$
 \\
-Vi ser at det første led bidrager med $\Theta(\text{lg} n)$ arbejde, hvilket
+Vi ser at det første led bidrager med $\Theta(\text{lg }n)$ arbejde, hvilket
 dominerer det konstante led fra basistilældet. Altså har vi $T_1(n) =\Theta(\text{lg} n)$. 
 Eftersom dybden af rekursive kald er logaritmisk, og de rekursive kald igen dominerer
-den konstante faktor fra basistilfældet får vi at $T_\infty(n) = \Theta(\text{lg} n)$. 
-Parallelismen for SUM-ARRAYS ($\frac{T_1} {T_\infty}$) bliver således $\frac{\text{lg n}} {\text{lg n}} = 1$. 
+den konstante faktor fra basistilfældet får vi at $T_\infty(n) = \Theta(\text{lg } n)$. 
+Parallelismen for SUM-ARRAYS ($\frac{T_1} {T_\infty}$) bliver således $\Theta(\frac{\text{lg n}} {\text{lg n}}) = \Theta(1)$. 
 
 \section{c}
-Eftersom hjælperoutinen ADD-SUBARRAY bidrager med $\Theta(n)$ som $grain-size$ vokser, kan en formel for SUM-ARRAYS' i termer af $n$ og $grain-size$ skrives på formen $$T_\infty = \lceil \frac{n} {grain-size} \rceil + n$$. 
-\todo[inline] {Differentiér $T_\infty$, find nulpunkt og argumentér for at dette vil være den optimale værdi for grain-size.} 
+Vi ser at for-løkken i SUM-ARRAYS' bidrager med $\Theta(r)$ arbejde og 
+at hjælperoutinen ADD-SUBARRAY bidrager med $\Theta(g)$ som $grain-size$ vokser. 
 
+Lader vi $g$ være $grain-size$ ser vi at en formel for SUM-ARRAYS' i termer af $n$ og $g$
+kan skrives på formen $T_\infty = \frac{n} {g} + g$ (her ignorerer vi afgrænsningerne i den 
+oprindelige kvotient). For at finde den optimale værdi for $grain-size$ differentierer vi
+$T_\infty$ med hensyn til $g$ og får
 
+$$T_\infty'(g) = 1 - (\frac{n} {g^2}) $$
 
+De optimale værdier for $g$ må da være nulpunkterne for $T_\infty'$: 
+
+$$
+\begin{aligned}
+ 1 - (\frac{n} {g^2}) &= 0 \\
+ 1 &=  (\frac{n} {g^2}) \\
+ n &= g^2 \\
+ g &= \sqrt[+-]{n}
+\end{aligned}
+$$
+ 
 \end{document} 
 
