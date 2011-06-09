@@ -17,12 +17,28 @@ convex-layer()
     return layer
 \end{verbatim}
 
-vi kan udnytte jarvis march \theta(n*h)
-vi ved at alle punkter skal traverseres (da alle skal med i et lag) derfor er h=n
+vi kan udnytte jarvis march algoritmen \theta(n*h)
+vi ved at alle punkter skal traverseres (da alle skal med i et lag).
+ derfor er h=n
 og hver knude leder alle n punkter igennem, derfor kan vi implementere den i \theta(n^2)
 
 algoritmen er bare at køre jarvis march indtil alle punkterne er væk eller der er under 3 punkter tilbage
 
+vi kan udnytte jarvis march algoritmen \theta(n*h)
+vi ved at alle punkter skal traverseres og bruges som knuder. Hvis et punkt ikke bruges i et konvekst hylster vil det blive brugt i et af de følgende. 
+I vores implementation godtager vi at det inderste lag kan bestå af 1 eller 2 punkter. 
+
+I vores algoritme bruger vi jarvis-march til at finde hvert konvekse-hylster lag. Dette gentages så på den resterende mængde punkter, indtil alle punkterne er i et lag.
+
+Vi ved at jarvis march algoritmen kører i \theta(n*h) hvor n er antallet af punkter og h er antallet af knuder. Da alle punkter er knude i et lag vil 
+og  alle knuderne fjernes fra mængden a punkter når deres lag er fundet ved vi at h = 
+
+(da alle skal med i et lag).
+ derfor er h=n
+og hver knude leder alle n punkter igennem, derfor kan vi implementere den i \theta(n^2)
+
+
+skriver det færdigt inden jeg går i seng/ inden jeg drikker mig fuld/ mens
 \begin{verbatim}
 convex-layers(Q)
     let S be an empty list
@@ -36,8 +52,5 @@ convex-layers(Q)
         S.append(k)
 
     return reverse(S)
-
-
-
 \end{verbatim}
 \end{document}
