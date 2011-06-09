@@ -39,34 +39,40 @@
 \newpage
 
 %% Vis indholdsfortegnelse
-\tableofcontents
-\newpage
+%%\tableofcontents
+%%\newpage
 
 %% Rapport, baby!
 \section{}
-Til at finde de konveksehyldster lag kan vi udnytte jarvis march-algoritmen.
-Vi ved at alle punkter skal traverseres og bruges som knuder. Hvis et punkt ikke bruges i et konvekst hylster vil det blive brugt i et af de følgende. 
-I vores implementation godtager vi at det inderste lag kan bestå af 1 eller 2 punkter. 
+Til at finde lagene i de konvekse hylstre kan vi udnytte Jarvis' march-algoritmen.
+Vi ved at alle punkter skal traverseres og bruges som knuder. Hvis et punkt ikke bruges
+i et konvekst hylster vil det blive brugt i et af de følgende. I vores implementation
+godtager vi at det inderste lag kan bestå af 1 eller 2 punkter. 
 
 \paragraph{}
-I vores algoritme bruger vi jarvis-march til at finde hvert konveks-hylster lag. Dette gentages så på den resterende mængde punkter, indtil alle punkterne er i et lag.
+I vores algoritme bruger vi jarvis-march til at finde hvert lag i de konvekse hylstre. Vi 
+indleder med at køre algoritmen på den samlede mængde af punkter. Dette gentages så på den
+resterende mængde punkter, indtil alle punkterne er i ét lag.
 
 \paragraph{}
 Vi har så at hvert punkt i mængden $Q$ vil ligge som knude i et lag. Hvert punkt bruges kun 1 gang.
 
+%%OBS! Tager Naja fejl her?
 \paragraph{}
-Vi ved at jarvis march algoritmen kører i $\theta(n*h)$ hvor n er antallet af punkter og h er antallet af knuder. 
-Vi ved at efter hver itteration bliver n, h punkter mindre. Samtidig ved vi at alle punkter er knude i et lag, så h = n og vi kan se at køretiden må være $\theta(n^2)$
+Vi ved at Jarvis' march-algoritmen kører i $\theta(n*h)$ hvor $n$ er antallet af punkter og $h$ er
+antallet af knuder, og at $n$ bliver $h$ punkter mindre efter hver iteration. Samtidig ved vi at
+alle punkter er knude i et lag, så  $h = n$, hvilket giver os at køretiden må være $\theta(n^2)$
 
 \paragraph{}
-Grundlæggende ved vi at hver jarvis-march itteration kigger på en knude og vinklerne til alle de resterende punkter. Da alle punkterne er knude i et lag, ser vi at jarvis-march skal bruges h=n gange ergo må køretiden være $\theta(n*n)$
+Grundlæggende ved vi at hver jarvis-march iteration kigger på en knude og vinklerne til alle de 
+resterende punkter. Da alle punkterne er knude i et lag, ser vi at jarvis-march skal bruges $h = n$ 
+gange. Ergo må køretiden være $\theta(n*n)$. 
 
-
-
-
+%% Meget fint, Søren. Du er sød og dygtig. 
 
 %skriver det færdigt inden jeg går i seng/ inden jeg drikker mig fuld/ mens
 \begin{verbatim}
+
 convex-layers(Q)
     let S be an empty list
 
