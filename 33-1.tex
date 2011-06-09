@@ -1,44 +1,71 @@
+\documentclass[10pt,a4paper,danish]{article}
+%% Indlæs ofte brugte pakker
+\usepackage{amssymb}
+\usepackage[danish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+%%Vi skal have ToDo-pakken fra Henne!
 
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\rhead{\today}
+\rfoot{\thepage}
+
+% Opsæt indlæsning af filer
+\lstset{
+ language=Python,
+ extendedchars=\true,
+ inputencoding=utf8,
+ linewidth=\textwidth, basicstyle=\small,
+ numbers=left, numberstyle=\footnotesize,
+ tabsize=2, showstringspaces=false,
+ breaklines=true, breakatwhitespace=false,
+}
+
+%% Titel og forfatter
+\title{Aflevering 3 \\Algoritmer og datastrukturer\\Forår/Sommer 2011}
+\author{Naja Mottelson (vsj465)\\Søren Pilgård (vpb984)}
+
+%% Start dokumentet
 \begin{document}
 
-\begin{verbatim}
-convex-layers(Q):
-    let L be an empty stack of convex layers
-    let p0 be lowest point in Q, leftmost in case of ties
-    let p be some kind of list containing the remaining points in Q sorted by polar angle (dont remove points closer in case of points with same angle)
-    let S be an empty stack
+%% Vis titel
+\maketitle
+\newpage
 
-    while p is not empty:
-        push(L, convex-layer())
-convex-layer()
-    let S be an empty stack
-    push(p[0],S)
-    push(p[
-    return layer
-\end{verbatim}
+%% Vis indholdsfortegnelse
+\tableofcontents
+\newpage
 
-vi kan udnytte jarvis march algoritmen \theta(n*h)
-vi ved at alle punkter skal traverseres (da alle skal med i et lag).
- derfor er h=n
-og hver knude leder alle n punkter igennem, derfor kan vi implementere den i \theta(n^2)
-
-algoritmen er bare at køre jarvis march indtil alle punkterne er væk eller der er under 3 punkter tilbage
-
-vi kan udnytte jarvis march algoritmen \theta(n*h)
-vi ved at alle punkter skal traverseres og bruges som knuder. Hvis et punkt ikke bruges i et konvekst hylster vil det blive brugt i et af de følgende. 
+%% Rapport, baby!
+\section{}
+Til at finde de konveksehyldster lag kan vi udnytte jarvis march-algoritmen.
+Vi ved at alle punkter skal traverseres og bruges som knuder. Hvis et punkt ikke bruges i et konvekst hylster vil det blive brugt i et af de følgende. 
 I vores implementation godtager vi at det inderste lag kan bestå af 1 eller 2 punkter. 
 
-I vores algoritme bruger vi jarvis-march til at finde hvert konvekse-hylster lag. Dette gentages så på den resterende mængde punkter, indtil alle punkterne er i et lag.
+\paragraph{}
+I vores algoritme bruger vi jarvis-march til at finde hvert konveks-hylster lag. Dette gentages så på den resterende mængde punkter, indtil alle punkterne er i et lag.
 
-Vi ved at jarvis march algoritmen kører i \theta(n*h) hvor n er antallet af punkter og h er antallet af knuder. Da alle punkter er knude i et lag vil 
-og  alle knuderne fjernes fra mængden a punkter når deres lag er fundet ved vi at h = 
+\paragraph{}
+Vi har så at hvert punkt i mængden $Q$ vil ligge som knude i et lag. Hvert punkt bruges kun 1 gang.
 
-(da alle skal med i et lag).
- derfor er h=n
-og hver knude leder alle n punkter igennem, derfor kan vi implementere den i \theta(n^2)
+\paragraph{}
+Vi ved at jarvis march algoritmen kører i $\theta(n*h)$ hvor n er antallet af punkter og h er antallet af knuder. 
+Vi ved at efter hver itteration bliver n, h punkter mindre. Samtidig ved vi at alle punkter er knude i et lag, så h = n og vi kan se at køretiden må være $\theta(n^2)$
+
+\paragraph{}
+Grundlæggende ved vi at hver jarvis-march itteration kigger på en knude og vinklerne til alle de resterende punkter. Da alle punkterne er knude i et lag, ser vi at jarvis-march skal bruges h=n gange ergo må køretiden være $\theta(n*n)$
 
 
-skriver det færdigt inden jeg går i seng/ inden jeg drikker mig fuld/ mens
+
+
+
+%skriver det færdigt inden jeg går i seng/ inden jeg drikker mig fuld/ mens
 \begin{verbatim}
 convex-layers(Q)
     let S be an empty list
